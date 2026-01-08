@@ -6,122 +6,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f4f4;
-  padding: 20px;
-}
-
-h1, h2 { text-align: center; }
-
-.pos {
-  max-width: 1000px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.productos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px;
-}
-
+body{font-family:Arial;background:#f4f4f4;padding:20px}
+h1,h2{text-align:center}
+.pos{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:10px}
+.productos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .productos button {
-  padding: 15px;
+  padding: 18px;
   border: none;
   border-radius: 8px;
   background: #2196f3;
   color: white;
   cursor: pointer;
+  font-size: 20px;      /* 👈 tamaño de letra */
+  font-weight: bold;    /* 👈 opcional */
 }
-
-table {
-  width: 100%;
-  margin-top: 15px;
-  border-collapse: collapse;
-}
-
-th, td {
-  border-bottom: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.cant-btn {
-  padding: 4px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.mas { background: #4caf50; color: white; }
-.menos { background: #f44336; color: white; }
-.eliminar { background: #9c27b0; color: white; }
-
-.total {
-  font-size: 22px;
-  font-weight: bold;
-  text-align: right;
-  margin-top: 10px;
-}
-
-.pago {
-  margin-top: 15px;
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.pago input {
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
-}
-
-.mensaje {
-  margin-top: 10px;
-  font-size: 18px;
-  color: green;
-  text-align: center;
-}
-
-.reporte {
-  margin-top: 25px;
-  border-top: 2px solid #ccc;
-  padding-top: 15px;
-}
-
-.btn {
-  width:100%;
-  margin-top:10px;
-  padding:12px;
-  font-size:18px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.btn-reset { background:#f44336; color:white; }
-.btn-corte { background:#4caf50; color:white; }
-
-.modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  justify-content:center;
-  align-items:center;
-}
-
-.modal-content {
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  max-width:400px;
-  width:90%;
-}
+table{width:100%;margin-top:15px;border-collapse:collapse}
+th,td{border-bottom:1px solid #ddd;padding:8px;text-align:center}
+.cant-btn{padding:4px 8px;border:none;border-radius:5px;cursor:pointer}
+.mas{background:#4caf50;color:white}
+.menos{background:#f44336;color:white}
+.eliminar{background:#9c27b0;color:white}
+.total{font-size:22px;font-weight:bold;text-align:right;margin-top:10px}
+.pago{margin-top:15px;background:#f1f1f1;padding:10px;border-radius:8px}
+.pago input{width:100%;padding:10px;font-size:18px}
+.mensaje{margin-top:10px;font-size:18px;color:green;text-align:center}
+.reporte{margin-top:25px;border-top:2px solid #ccc;padding-top:15px}
+.btn{width:100%;margin-top:10px;padding:12px;font-size:18px;border:none;border-radius:8px;cursor:pointer}
+.btn-reset{background:#f44336;color:white}
+.btn-corte{background:#4caf50;color:white}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center}
+.modal-content{background:white;padding:20px;border-radius:10px;max-width:400px;width:90%}
 </style>
 </head>
 
@@ -131,195 +45,192 @@ th, td {
 
 <div class="pos">
 
-  <!-- PRODUCTOS -->
-  <div class="productos">
-    <button onclick="agregar('Mediana',20)">Mediana $20</button>
-    <button onclick="agregar('Bote',22)">Bote $22</button>
-    <button onclick="agregar('Cartón Mediana',450)">Cartón Mediana $450</button>
-    <button onclick="agregar('Six',110)">Six $110</button>
-    <button onclick="agregar('Caguama',50)">Caguama $50</button>
-    <button onclick="agregar('Pizza',30)">Pizza $30</button>
-    <button onclick="agregar('Hot Dog',55)">Hot Dog $55</button>
-    <button onclick="agregar('Botana',10)">Botana $10</button>
-    <button onclick="agregar('Tostada',12)">Tostada $12</button>
-    <button onclick="agregar('Agua',10)">Agua $10</button>
-  </div>
-
-  <!-- VENTA -->
-  <table>
-    <thead>
-      <tr>
-        <th>Producto</th>
-        <th>Cantidad</th>
-        <th>Precio</th>
-        <th>Subtotal</th>
-        <th>❌</th>
-      </tr>
-    </thead>
-    <tbody id="tablaVenta"></tbody>
-  </table>
-
-  <div class="total">Total: $<span id="total">0</span></div>
-
-  <!-- PAGO -->
-  <div class="pago">
-    <label>Efectivo recibido (ENTER para cobrar)</label>
-    <input type="number" id="efectivo">
-    <div class="total">Cambio: $<span id="cambio">0</span></div>
-  </div>
-
-  <div class="mensaje" id="mensaje"></div>
-
-  <!-- REPORTE -->
-  <div class="reporte">
-    <h2>📊 Ventas del Día</h2>
-    <ul id="listaVentas"></ul>
-    <div class="total">Total del Día: $<span id="totalDia">0</span></div>
-
-    <button class="btn btn-corte" onclick="abrirCorte()">🔐 Corte de caja</button>
-    <button class="btn btn-reset" onclick="reiniciarDia()">🔁 Reiniciar día</button>
-  </div>
-
+<!-- PRODUCTOS -->
+<div class="productos">
+<button onclick="agregar('Mediana',20,14)">Mediana $20</button>
+<button onclick="agregar('Bote',22,14.6)">Bote $22</button>
+<button onclick="agregar('Cartón Mediana',450,335)">Cartón Mediana $450</button>
+<button onclick="agregar('Six',110,88.8)">Six $110</button>
+<button onclick="agregar('Caguama',50,34)">Caguama $50</button>
+<button onclick="agregar('Pizza',30,19,.6)">Pizza $30</button>
+<button onclick="agregar('Hot Dog',55,38)">Hot Dog $55</button>
+<button onclick="agregar('Botana',10,5)">Botana $10</button>
+<button onclick="agregar('Tostada',12,6)">Tostada $12</button>
+<button onclick="agregar('Agua',10,4.5)">Agua $10</button>
 </div>
 
-<!-- MODAL CORTE -->
+<!-- VENTA -->
+<table>
+<thead>
+<tr>
+<th>Producto</th>
+<th>Cantidad</th>
+<th>Precio</th>
+<th>Subtotal</th>
+<th>❌</th>
+</tr>
+</thead>
+<tbody id="tablaVenta"></tbody>
+</table>
+
+<div class="total">Total: $<span id="total">0</span></div>
+
+<!-- PAGO -->
+<div class="pago">
+<label>Efectivo recibido (ENTER para cobrar)</label>
+<input type="number" id="efectivo">
+<div class="total">Cambio: $<span id="cambio">0</span></div>
+</div>
+
+<div class="mensaje" id="mensaje"></div>
+
+<!-- REPORTE -->
+<div class="reporte">
+<h2>📊 Ventas del Día</h2>
+<ul id="listaVentas"></ul>
+<div class="total">Total del Día: $<span id="totalDia">0</span></div>
+
+<button class="btn btn-corte" onclick="abrirCorte()">🔐 Corte de caja</button>
+<button class="btn btn-reset" onclick="reiniciarDia()">🔁 Reiniciar día</button>
+</div>
+</div>
+
+<!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <h2>Corte de Caja</h2>
-    <div id="contenidoCorte"></div>
-    <button class="btn btn-corte" onclick="window.print()">🖨️ Imprimir</button>
-    <button class="btn btn-reset" onclick="cerrarModal()">Cerrar</button>
-  </div>
+<div class="modal-content">
+<h2>Corte de Caja</h2>
+<div id="contenidoCorte"></div>
+<button class="btn btn-corte" onclick="window.print()">🖨️ Imprimir</button>
+<button class="btn btn-reset" onclick="cerrarModal()">Cerrar</button>
+</div>
 </div>
 
 <script>
-const PASSWORD_CORTE = "1234";
+const PASSWORD_CORTE="1234";
+let carrito={},total=0,esperandoCerrar=false;
+const hoy=new Date().toLocaleDateString();
+let ventasDia=JSON.parse(localStorage.getItem(hoy))||[];
 
-let carrito = {};
-let total = 0;
-let esperandoCerrar = false;
+const efectivoInput=document.getElementById("efectivo");
+const mensaje=document.getElementById("mensaje");
 
-const hoy = new Date().toLocaleDateString();
-let ventasDia = JSON.parse(localStorage.getItem(hoy)) || [];
-
-const efectivoInput = document.getElementById("efectivo");
-const mensaje = document.getElementById("mensaje");
+efectivoInput.addEventListener("keydown",e=>{
+if(e.key==="Enter"){e.preventDefault();!esperandoCerrar?cobrar():cerrarVenta()}
+});
 
 renderVentasDia();
 
-efectivoInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    !esperandoCerrar ? cobrar() : cerrarVenta();
-  }
-});
-
-function agregar(n,p){
-  carrito[n] ? carrito[n].cantidad++ : carrito[n]={precio:p,cantidad:1};
-  render();
+function agregar(n,venta,costo){
+carrito[n]?carrito[n].cantidad++:
+carrito[n]={precio:venta,costo:costo,cantidad:1};
+render();
 }
 
 function cambiarCantidad(p,c){
-  carrito[p].cantidad += c;
-  if (carrito[p].cantidad <= 0) delete carrito[p];
-  render();
+carrito[p].cantidad+=c;
+if(carrito[p].cantidad<=0)delete carrito[p];
+render();
 }
 
-function eliminarProducto(p){
-  delete carrito[p];
-  render();
-}
+function eliminarProducto(p){delete carrito[p];render();}
 
 function render(){
-  const t=document.getElementById("tablaVenta");
-  t.innerHTML=""; total=0;
-
-  for(let p in carrito){
-    const i=carrito[p], s=i.precio*i.cantidad;
-    total+=s;
-    t.innerHTML+=`
-    <tr>
-      <td>${p}</td>
-      <td>
-        <button class="cant-btn menos" onclick="cambiarCantidad('${p}',-1)">➖</button>
-        ${i.cantidad}
-        <button class="cant-btn mas" onclick="cambiarCantidad('${p}',1)">➕</button>
-      </td>
-      <td>$${i.precio}</td>
-      <td>$${s}</td>
-      <td><button class="cant-btn eliminar" onclick="eliminarProducto('${p}')">❌</button></td>
-    </tr>`;
-  }
-
-  document.getElementById("total").innerText=total;
-  calcularCambio();
+const t=document.getElementById("tablaVenta");
+t.innerHTML="";total=0;
+for(let p in carrito){
+let i=carrito[p],s=i.precio*i.cantidad;
+total+=s;
+t.innerHTML+=`
+<tr>
+<td>${p}</td>
+<td>
+<button class="cant-btn menos" onclick="cambiarCantidad('${p}',-1)">➖</button>
+${i.cantidad}
+<button class="cant-btn mas" onclick="cambiarCantidad('${p}',1)">➕</button>
+</td>
+<td>$${i.precio}</td>
+<td>$${s}</td>
+<td><button class="cant-btn eliminar" onclick="eliminarProducto('${p}')">❌</button></td>
+</tr>`;
+}
+document.getElementById("total").innerText=total;
+calcularCambio();
 }
 
 function calcularCambio(){
-  const e=parseFloat(efectivoInput.value)||0;
-  document.getElementById("cambio").innerText = e>=total ? e-total : 0;
+const e=parseFloat(efectivoInput.value)||0;
+document.getElementById("cambio").innerText=e>=total?e-total:0;
 }
 
 function cobrar(){
-  const e=parseFloat(efectivoInput.value)||0;
-  if(total===0 || e<total) return;
+const e=parseFloat(efectivoInput.value)||0;
+if(total===0||e<total)return;
 
-  ventasDia.push({hora:new Date().toLocaleTimeString(), total});
-  localStorage.setItem(hoy, JSON.stringify(ventasDia));
-  renderVentasDia();
+let costoVenta=0;
+for(let p in carrito){
+costoVenta+=carrito[p].costo*carrito[p].cantidad;
+}
 
-  mensaje.innerText = `Venta guardada ✔ Cambio: $${e-total} — ENTER para nueva venta`;
-  esperandoCerrar = true;
+ventasDia.push({
+hora:new Date().toLocaleTimeString(),
+total:total,
+costo:costoVenta
+});
+
+localStorage.setItem(hoy,JSON.stringify(ventasDia));
+renderVentasDia();
+mensaje.innerText=`Venta guardada ✔ Cambio: $${e-total} — ENTER para nueva venta`;
+esperandoCerrar=true;
 }
 
 function cerrarVenta(){
-  carrito={}; total=0;
-  document.getElementById("tablaVenta").innerHTML="";
-  document.getElementById("total").innerText=0;
-  efectivoInput.value="";
-  document.getElementById("cambio").innerText=0;
-  mensaje.innerText="";
-  esperandoCerrar=false;
-  efectivoInput.focus();
+carrito={};total=0;
+document.getElementById("tablaVenta").innerHTML="";
+document.getElementById("total").innerText=0;
+efectivoInput.value="";
+document.getElementById("cambio").innerText=0;
+mensaje.innerText="";
+esperandoCerrar=false;
+efectivoInput.focus();
 }
 
 function renderVentasDia(){
-  const l=document.getElementById("listaVentas");
-  l.innerHTML=""; let suma=0;
-  ventasDia.forEach(v=>{
-    suma+=v.total;
-    l.innerHTML+=`<li>${v.hora} — $${v.total}</li>`;
-  });
-  document.getElementById("totalDia").innerText=suma;
+const l=document.getElementById("listaVentas");
+l.innerHTML="";let suma=0;
+ventasDia.forEach(v=>{suma+=v.total;l.innerHTML+=`<li>${v.hora} — $${v.total}</li>`});
+document.getElementById("totalDia").innerText=suma;
 }
 
 function abrirCorte(){
-  const pass = prompt("Ingresa la contraseña:");
-  if(pass !== PASSWORD_CORTE) return alert("Contraseña incorrecta");
+const pass=prompt("Ingresa la contraseña:");
+if(pass!==PASSWORD_CORTE)return alert("Contraseña incorrecta");
 
-  document.getElementById("contenidoCorte").innerHTML=`
-    <p>📅 Fecha: ${hoy}</p>
-    <p>🧾 Ventas: ${ventasDia.length}</p>
-    <p>💰 Total: $${ventasDia.reduce((a,b)=>a+b.total,0)}</p>
-    <p>⏰ Hora: ${new Date().toLocaleTimeString()}</p>
-  `;
-  document.getElementById("modal").style.display="flex";
+let vendido=0,gastado=0;
+ventasDia.forEach(v=>{vendido+=v.total;gastado+=v.costo});
+
+document.getElementById("contenidoCorte").innerHTML=`
+<p>📅 Fecha: ${hoy}</p>
+<p>🧾 Ventas: ${ventasDia.length}</p>
+<p>💰 Total vendido: $${vendido}</p>
+<p>📦 Total gastado: $${gastado}</p>
+<p>📈 Utilidad: $${vendido-gastado}</p>
+<p>⏰ Hora: ${new Date().toLocaleTimeString()}</p>
+`;
+document.getElementById("modal").style.display="flex";
 }
 
 function reiniciarDia(){
-  const pass = prompt("Ingresa la contraseña para reiniciar el día:");
-  if(pass !== PASSWORD_CORTE) return alert("Contraseña incorrecta");
-
-  localStorage.removeItem(hoy);
-  ventasDia=[];
-  renderVentasDia();
+const pass=prompt("Ingresa la contraseña para reiniciar:");
+if(pass!==PASSWORD_CORTE)return alert("Contraseña incorrecta");
+localStorage.removeItem(hoy);
+ventasDia=[];
+renderVentasDia();
 }
 
 function cerrarModal(){
-  document.getElementById("modal").style.display="none";
+document.getElementById("modal").style.display="none";
 }
 </script>
 
 </body>
 </html>
-
